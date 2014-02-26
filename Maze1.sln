@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Maze1", "Maze1\Maze1.vcproj", "{04408D51-BCD6-43C9-B7F2-6A5960155590}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04408D51-BCD6-43C9-B7F2-6A5960155590}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04408D51-BCD6-43C9-B7F2-6A5960155590}.Debug|Win32.Build.0 = Debug|Win32
+		{04408D51-BCD6-43C9-B7F2-6A5960155590}.Release|Win32.ActiveCfg = Release|Win32
+		{04408D51-BCD6-43C9-B7F2-6A5960155590}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
