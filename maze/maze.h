@@ -21,7 +21,7 @@ public:
 class Room : public MapSite
 {
 public:
-	Room(int roomNo) : _roomNumber(roomNo)
+	Room(int roomNo = 0) : _roomNumber(roomNo)
 	{
 		//cout << "构造了一个普通的房间, 房间号为：" 
 		//	 << _roomNumber << endl;
@@ -29,6 +29,25 @@ public:
 		{
 			_sides[i] = NULL;
 		}
+	}
+
+	//拷贝构造函数，实现原型模式
+	Room(const Room& r) : _roomNumber(r._roomNumber)
+    {
+		for(int i = 0; i < 4; i++)
+		{
+    		_sides[i] = r._sides[i];
+		}
+	}
+
+	virtual Room* clone()
+	{
+		return new Room(*this);
+	}
+
+	void Initialize(int n)
+	{
+		_roomNumber = n;
 	}
 
 	MapSite* GetSide(Direction direct) const
@@ -64,6 +83,11 @@ public:
 		//cout << "构造了一面普通的墙" << endl;
 	}
 
+    virtual Wall* clone()
+	{
+		return new Wall(*this);
+	}
+
 	virtual void Enter()
 	{
 		cout << "这边是一面墙，遇到了一面墙" << endl;
@@ -73,17 +97,36 @@ public:
 class Door : public MapSite
 {
 public:
+
 	Door(Room* room1= 0, Room* room2= 0) : 
 	  _room1(room1), _room2(room2), _isOpen(false)
-	  {
+	{
           //cout << "构造了一扇普通的门，门两边的房间号分别为："
 		  //  << room1->GetRoomId() << " " << room2->GetRoomId() << endl;
-	  }
+	}
+
+    Door(const Door& other) : _isOpen(other._isOpen)
+	{
+		_room1 = other._room1;
+		_room2 = other._room2;
+	}
+
+	void Initialize(Room* r1, Room* r2)
+	{
+		_room1 = r1;
+		_room2 = r2;
+	}
+
+	virtual Door* clone()
+	{
+	    return new Door(*this);	
+	}
 
 	virtual void Enter()
 	{
 		cout << "这是一扇门，遇到了一扇门" << endl;
 	}
+
 	Room* OtherSideFrom(Room* )
 	{
         cout << _room1->GetRoomId() << " 号房间的另一边是 " 
@@ -103,6 +146,12 @@ public:
 	{
 		cout << "开始构造一个迷宫" << endl;
 	}
+
+	Maze* clone()
+	{
+		return new Maze(*this);
+	}
+
 	void AddRoom(Room* room)
 	{
 		cout << "增加了一个房间，房间号为：" << room->GetRoomId() << endl;
@@ -124,6 +173,11 @@ public:
 			 << n << endl;
 	}
 
+	virtual Room* clone()
+	{
+		return new Room(*this);
+	}
+
     void Enter()
     {
         cout << "进入EnchantedRoom..." << endl;
@@ -133,10 +187,16 @@ public:
 class RoomWithBomb : public Room
 {
 public:
-	RoomWithBomb(int n) : Room(n)
+	RoomWithBomb(int n = 0) : Room(n)
 	{
 		//cout << "构造一个RoomWithBomb,房间号为 " << n << endl;
 	}
+
+	virtual Room* clone()
+	{
+		return new Room(*this);
+	}
+
     void Enter()
 	{
         cout << "进入RoomWithBomb..." << endl;
@@ -151,6 +211,11 @@ public:
 		cout << "构造一个BombdeWall..." << endl;
 	}
 
+	virtual Wall* clone()
+	{
+		return new Wall(*this);
+	}
+
     void Enter()
 	{
         cout << "这是个炸坏的墙：BombdeWall" << endl;
@@ -163,6 +228,11 @@ public:
 	DoorNeedingSpell(Room* room1, Room* room2) : Door(room1, room2)
 	{
         cout << "构造一个DoorNeedingSpell..." << endl;
+	}
+
+	virtual Door* clone()
+	{
+		return new Door(*this);
 	}
 
     void Enter()
